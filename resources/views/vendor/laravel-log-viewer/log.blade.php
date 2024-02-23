@@ -1,15 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="robots" content="noindex, nofollow">
-  <title>Laravel log viewer</title>
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
+  <meta name="csrf-token" content="{{ csrf_token() }}"/>
+  <title>@yield('title', 'SIIGEAPI | Logs')</title>
+  <link rel="icon" href="{{ asset('public/img/logo-seguros-la-fe.jpg')}}">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+  <link href="{{ asset('public/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+  <!-- Ionicons -->
+  {{-- <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet"> --}}
+  <link href="{{ asset('public/assets/css/@fortawesome/fontawesome-free/css/all.css') }}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{{ asset('public/assets/css/iziToast.min.css') }}">
+  <link href="{{ asset('public/assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset('public/assets/js/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet"/>
+  <link href="{{ asset('public/assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="{{ asset('public/css/jquery-confirm.min.css')}}" type="text/css">
+
+
+  @yield('page_css')
+  <!-- Template CSS -->
+  <link rel="stylesheet" href="{{ asset('public/web/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('public/web/css/components.css')}}">
+  @yield('page_css')
+
+  @yield('css')
   <style>
     body {
       padding: 25px;
@@ -172,9 +188,14 @@
 <body>
 <div class="container-fluid">
   <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <a href="{{ route('home') }}" class="btn btn-danger text-white"><i class="fa fa-reply text-white"></i> Regresar</a>
+    </div>
+  </div>
+  <br>
+  <div class="row">
     <div class="col sidebar mb-3">
-      <h1><i class="fa fa-calendar" aria-hidden="true"></i> Laravel Log Viewer</h1>
-      <p class="text-muted"><i>by Rap2h</i></p>
+      <h1><i class="fa fa-file-code" aria-hidden="true"></i> Logs</h1>
 
       <div class="custom-control custom-switch" style="padding-bottom:20px;">
         <input type="checkbox" class="custom-control-input" id="darkSwitch">
