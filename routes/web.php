@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Web\DependenciasController;
+use App\Http\Controllers\Web\EmpresasController;
 use App\Http\Controllers\Web\PermisosController;
 use App\Http\Controllers\Web\RoleController;
 use App\Http\Controllers\Web\TrazasController;
@@ -34,7 +34,7 @@ Route::middleware(['auth', 'status.user', 'password.status.user'])->group(functi
     Route::resource('trazas', TrazasController::class);
     Route::resource('sessions', SessionsController::class);
     Route::resource('tokens', TokensController::class);
-    Route::resource('empresas', DependenciasController::class);
+    Route::resource('empresas', EmpresasController::class);
     Route::resource('servicios', ServiciosController::class);
 
     // Rutas Principales (Login y Home)
@@ -83,7 +83,7 @@ Route::middleware(['auth', 'status.user', 'password.status.user'])->group(functi
     Route::get('/trazasRoles', [TrazasController::class, 'indexRoles'])->name('traza_roles.index');
     Route::get('/trazasSesiones', [TrazasController::class, 'indexSesiones'])->name('traza_sesiones.index');
     Route::get('/trazasPermisos', [TrazasController::class, 'indexPermisos'])->name('traza_permisos.index');
-    Route::get('/trazaEmpresas', [TrazasController::class, 'index_dependencias'])->name('traza_dependencias.index');
+    Route::get('/trazaEmpresas', [TrazasController::class, 'index_empresas'])->name('Traza_Empresas.index');
     Route::get('/trazaTokens', [TrazasController::class, 'index_tokens'])->name('traza_tokens.index');
     Route::get('/trazaServicios', [TrazasController::class, 'index_servicios'])->name('traza_servicios.index');
     Route::get('/trazaApi', [TrazasController::class, 'index_api'])->name('traza_api.index');
@@ -95,7 +95,7 @@ Route::middleware(['auth', 'status.user', 'password.status.user'])->group(functi
         Route::get('/roles/{data}', [TrazasController::class, 'showRoles'])->name('traza_roles.show');
         Route::get('/sesiones/{data}', [TrazasController::class, 'showSesiones'])->name('traza_sesiones.show');
         Route::get('/permisos/{data}', [TrazasController::class, 'showPermisos'])->name('traza_permisos.show');
-        Route::get('/empresas/{data}', [TrazasController::class, 'show_dependencias'])->name('traza_dependencias.show');
+        Route::get('/empresas/{data}', [TrazasController::class, 'show_empresas'])->name('Traza_Empresas.show');
         Route::get('/tokens/{data}', [TrazasController::class, 'show_tokens'])->name('traza_tokens.show');
         Route::get('/historialTokens/{historial_token}', [TrazasController::class, 'show_historial_tokens'])->name('traza_historial_tokens.show');
         Route::get('/api/{apis}', [TrazasController::class, 'show_api'])->name('traza_api.show');
@@ -109,16 +109,13 @@ Route::middleware(['auth', 'status.user', 'password.status.user'])->group(functi
     Route::get('/historialSesion', [HistorialSesionController::class, 'index'])->name('historial_sesion.index');
     Route::get('export/historialSesion/', [HistorialSesionController::class, 'exportExcel'])->name('historial_sesion.export.excel');
 
-    // Módulo de Configuraciones
-    Route::prefix('/configuraciones')->group(function() {
-        Route::get('/', [ConfiguracionesController::class, 'index'])->name('configuraciones.index');
-        Route::get('/permisos', [PermisosController::class, 'index'])->name('permisos.index');
-        Route::get('/permisos/create', [PermisosController::class, 'create'])->name('permisos.create');
-        Route::get('/permisos/{permiso}/edit', [PermisosController::class, 'edit'])->name('permisos.edit');
-        Route::patch('/permisos/{permiso}', [PermisosController::class, 'update'])->name('permisos.update');
-        Route::post('/permisos', [PermisosController::class, 'store'])->name('permisos.store');
-        Route::delete('/permisos/{permiso}', [PermisosController::class, 'destroy'])->name('permisos.destroy');
-    });
+    // Módulo de Permisos
+    Route::get('/permisos', [PermisosController::class, 'index'])->name('permisos.index');
+    Route::get('/permisos/create', [PermisosController::class, 'create'])->name('permisos.create');
+    Route::get('/permisos/{permiso}/edit', [PermisosController::class, 'edit'])->name('permisos.edit');
+    Route::patch('/permisos/{permiso}', [PermisosController::class, 'update'])->name('permisos.update');
+    Route::post('/permisos', [PermisosController::class, 'store'])->name('permisos.store');
+    Route::delete('/permisos/{permiso}', [PermisosController::class, 'destroy'])->name('permisos.destroy');
 
     // Módulo de Logs
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->name('logs');
