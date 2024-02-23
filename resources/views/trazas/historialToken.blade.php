@@ -56,7 +56,7 @@
                                         <tbody>
                                             @foreach ($historial_token as $tokens)
                                             <tr role="row" class="odd">
-                                                <td class="sorting_1">{{$tokens->Dependencias->nombre}}</td>
+                                                <td class="sorting_1">{{$tokens->empresas->nombre}}</td>
                                                 @if ($tokens->created_at)
                                                     <td class="sorting_1">{{date('d/m/Y H:i:s', strtotime($tokens->created_at))}}</td>
                                                 @else

@@ -22,19 +22,19 @@
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <label for="name">Dependencia</label>
-                                    {!! Form::text('user', $historial_token->Dependencias->nombre, array('class' => 'form-control', 'readonly')) !!}
+                                    {!! Form::text('user', $historial_token->empresas->nombre, array('class' => 'form-control', 'readonly')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <label for="name">Organismo</label>
-                                    {!! Form::text('user', $historial_token->Dependencias->organismo, array('class' => 'form-control', 'readonly')) !!}
+                                    {!! Form::text('user', $historial_token->empresas->organismo, array('class' => 'form-control', 'readonly')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">
                                 <div class="form-group">
                                     <label for="name">Ministerio</label>
-                                    {!! Form::text('user', $historial_token->Dependencias->ministerio, array('class' => 'form-control', 'readonly')) !!}
+                                    {!! Form::text('user', $historial_token->empresas->ministerio, array('class' => 'form-control', 'readonly')) !!}
                                 </div>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4">

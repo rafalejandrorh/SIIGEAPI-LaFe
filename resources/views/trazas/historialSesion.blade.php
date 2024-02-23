@@ -57,12 +57,12 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($historialSesion as $historial)
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">{{$historial->user->users}}</td>
-                                            <td class="sorting_1">{{$historial->acciones->valor}}</td>
-                                            <td class="sorting_1">{{$historial->valores_modificados}}</td>
-                                            <td class="sorting_1">{{ date('d/m/Y H:i:s', strtotime($historial->created_at)) }}</td>
-                                        </tr>
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">{{$historial->user->users}}</td>
+                                                <td class="sorting_1">{{$historial->acciones->valor}}</td>
+                                                <td class="sorting_1">{{$historial->valores_modificados}}</td>
+                                                <td class="sorting_1">{{ date('d/m/Y H:i:s', strtotime($historial->created_at)) }}</td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

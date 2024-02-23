@@ -26,11 +26,9 @@
                                     <div class="form-group">
                                         {!! Form::select('tipo_busqueda', ['' => 'Ver todos',
                                         'cedula' => 'Cédula',
-                                        'credencial' => 'Credencial',
-                                        'jerarquia' => 'Jerarquía', 
                                         'usuario' => 'Usuario', 
-                                        'nombre' => 'Primer Nombre del Funcionario',
-                                        'apellido' => 'Primer Apellido del Funcionario',], 
+                                        'nombre' => 'Primer Nombre',
+                                        'apellido' => 'Primer Apellido',], 
                                         'Seleccionar', array('class' => 'form-control select2')) !!}
                                     </div>
                                 </div>
@@ -62,7 +60,7 @@
                                             @foreach ($historial_sesion as $historial)
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">{{$historial->user->users}}</td>
-                                                <td class="sorting_1">{{$historial->user->funcionario->person->primer_nombre.' '.$historial->user->funcionario->person->primer_apellido}}</td>
+                                                <td class="sorting_1">{{$historial->user->person->primer_nombre.' '.$historial->user->person->primer_apellido}}</td>
                                                 <td class="sorting_1">{{ date('d/m/Y H:i:s', strtotime($historial->login)) }}</td>
                                                 @if ($historial->logout)
                                                     <td class="sorting_1">{{ date('d/m/Y H:i:s', strtotime($historial->logout)) }}</td>

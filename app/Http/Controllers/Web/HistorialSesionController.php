@@ -19,9 +19,8 @@ class HistorialSesionController extends Controller
 
     function __construct(Historial_Sesion $historial_Sesion)
     {
-        $this->middleware('can:historialSesion.index')->only('index');
-        $this->middleware('can:historialSesion.excel')->only('exportExcel');
-
+        // $this->middleware('can:historialSesion.index')->only('index');
+        // $this->middleware('can:historialSesion.excel')->only('exportExcel');
         $this->historial = $historial_Sesion;
     }
 

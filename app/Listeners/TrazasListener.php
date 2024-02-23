@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Models\Traza_Apk_Movil;
 use App\Models\Traza_Backup;
 use App\Models\Traza_Bitacora_Llamadas;
-use App\Models\Traza_Dependencias;
+use App\Models\Traza_Empresas;
 use App\Models\Traza_Funcionarios;
 use App\Models\Traza_Historial_Sesion;
 use App\Models\Traza_Permisos;
@@ -73,8 +73,8 @@ class TrazasListener
             case 'Traza_BitacoraLlamadas':
                 Traza_Bitacora_Llamadas::Create($data);
                 break;
-            case 'Traza_Dependencias':
-                Traza_Dependencias::Create($data);
+            case 'Traza_Empresas':
+                Traza_Empresas::Create($data);
                 break;
             case 'Traza_Servicios':
                 Traza_Servicios::Create($data);
