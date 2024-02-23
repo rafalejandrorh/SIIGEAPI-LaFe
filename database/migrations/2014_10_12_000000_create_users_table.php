@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('users')->unique();
             $table->string('password');
             $table->boolean('status');
-            $table->timestamp('last_login');
+            $table->string('email')->nullable();
+            $table->timestamp('last_login')->nullable();
             $table->boolean('password_status');
             $table->boolean('security_questions');
             $table->rememberToken();
