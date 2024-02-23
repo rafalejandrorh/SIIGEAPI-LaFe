@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="{{ asset('public/img/logo_pmcr_sin_fondo.png')}}">
+        <link rel="icon" href="{{ asset('public/img/logo-seguros-la-fe.jpg')}}">
         <title>@yield('title')</title>
 
         <style>
@@ -21,8 +21,8 @@
             <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex items-center pt-8 sm:justify-start sm:pt-0">
                     <div class="px-2 text-lg text-gray-500 tracking-wider">
-                        <img class="navbar-brand-full app-header-logo" src="{{ asset('public/img/logo_pmcr_sin_fondo.png') }}" width="55"
-                        alt="Logo Policía Municipal">
+                        <img class="navbar-brand-full app-header-logo" src="{{ asset('public/img/logo-seguros-la-fe.jpg') }}" width="55"
+                        alt="Seguros La Fé">
                     </div>
 
                     <div class="px-4 text-lg text-gray-500 border-r border-gray-400 tracking-wider">
