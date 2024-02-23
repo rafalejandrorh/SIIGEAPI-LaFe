@@ -54,7 +54,7 @@ class AuthController extends Controller
 
                     $dateNow = date('d-m-Y H:i:s');
                     $dateExpireToken = date('d-m-Y H:i:s', strtotime($dateNow."+ 12 hour"));
-                    $token = $user->createToken('APPSIREPOL', ['*'], $dateExpireToken)->plainTextToken;
+                    $token = $user->createToken('APPSIIGEAPI', ['*'], $dateExpireToken)->plainTextToken;
                     
                     $message = 'Inicio de Sesión Exitoso';
                     $data = [

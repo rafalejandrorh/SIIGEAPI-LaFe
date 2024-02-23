@@ -39,13 +39,13 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
-                @can('users.password')
+                {{-- @can('users.password') --}}
                     @if (!isset($password_status) || $password_status == false)
                         <a class="dropdown-item" href="{{ route('users.profile') }}">
                             <i class="fa fa-user"></i>  Mi Perfil
                         </a>
                     @endif
-                @endcan
+                {{-- @endcan --}}
                 <a class="dropdown-item text-danger" onclick="document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out-alt"></i>  Cerrar Sesión
                 </a>

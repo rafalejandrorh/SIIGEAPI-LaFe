@@ -21,9 +21,9 @@
                                 </div>
                                 <div class="col-xs-1 col-sm-1 col-md-1 text-right">
                                     <div class="form-group">
-                                        @can('roles.excel')
+                                        {{-- @can('roles.excel') --}}
                                         <a class="btn btn-success" href="{{ route('roles.export.excel') }}"><i class="fas fa-file-excel"></i></a>                        
-                                        @endcan
+                                        {{-- @endcan --}}
                                     </div>
                                 </div>
                             </div>
@@ -38,15 +38,15 @@
                                 <tr>                           
                                     <td>{{ $role->name }}</td>
                                     <td>                                
-                                        @can('roles.edit')
+                                        {{-- @can('roles.edit') --}}
                                             <a class="btn btn-primary" Title="Editar" href="{{ route('roles.edit', $role->id) }}"><i class='fa fa-edit'></i></a>
-                                        @endcan
+                                        {{-- @endcan --}}
                                         
-                                        @can('roles.destroy')
+                                        {{-- @can('roles.destroy') --}}
                                             {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline', 'class' => 'eliminar']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'Title' => 'Eliminar']) !!}
                                             {!! Form::close() !!}
-                                        @endcan
+                                        {{-- @endcan --}}
                                     </td>
                                 </tr>
                                 @endforeach
