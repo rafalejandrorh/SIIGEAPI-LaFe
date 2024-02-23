@@ -6,8 +6,8 @@
         <div class="row">
             <div class="col-xs-5 col-sm-5 col-md-5">
                 <div class="form-group">
-                    <label for="email">Funcionario Asignado</label>
-                    {!! Form::text('user', $data['user']->funcionario->jerarquia->valor.'. '.$data['user']->funcionario->person->primer_nombre.' '.$data['user']->funcionario->person->primer_apellido, [
+                    <label for="email">Persona Asignada</label>
+                    {!! Form::text('user', $data['user']->person->primer_nombre.' '.$data['user']->person->primer_apellido, [
                         'class' => 'form-control', 
                         'id' => 'user',
                         'readonly', 'readonly'

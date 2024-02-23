@@ -42,11 +42,11 @@
                             <div class="row">
                                 <div class="col-xs-10 col-sm-10 col-md-10">
                                     <div class="form-group">
-                                        @can('sessions.destroyAll')
-                                        {!! Form::open(['method' => 'DELETE', 'route' => ['sessions.destroy', 'all'], 'style'=>'display:inline', 'class' => 'eliminar']) !!}
-                                            {!! Form::button('Cerrar Todas las Sesiones', ['type' => 'submit', 'class' => 'btn btn-danger']) !!}
-                                        {!! Form::close() !!}    
-                                        @endcan
+                                        {{-- @can('sessions.destroyAll') --}}
+                                            {!! Form::open(['method' => 'DELETE', 'route' => ['sessions.destroy', 'all'], 'style'=>'display:inline', 'class' => 'eliminar']) !!}
+                                                {!! Form::button('Cerrar Todas las Sesiones', ['type' => 'submit', 'class' => 'btn btn-danger']) !!}
+                                            {!! Form::close() !!}    
+                                        {{-- @endcan --}}
                                     </div>
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 text-rigth">
@@ -73,23 +73,23 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($sessions as $session)
-                                    @if (isset($session->user))
-                                        <tr role="row" class="odd">
-                                            <td class="sorting_1">{{$session->user ? $session->user->users : 'Sin Inicio de Sesión'}}</td>
-                                            <td class="sorting_1">{{$session->ip_address}}</td>
-                                            <td class="sorting_1">{{\Carbon\Carbon::createFromTimeStamp($session->last_activity)->diffForhumans()}}</td>
-                                            <td class="sorting_1">
-                                                @can('resenna.show')
-                                                    <a class="btn btn-info" title="Mostrar" href="{{ route('sessions.show', $session->session_id) }}"><i class='fa fa-eye'></i></a>
-                                                @endcan
-                                                @can('sessions.destroy')
-                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['sessions.destroy', $session->session_id], 'style'=>'display:inline', 'class' => 'eliminar']) !!}
-                                                        {!! Form::button('<i class="fa fa-window-close"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'Title' => 'Eliminar']) !!}
-                                                    {!! Form::close() !!}                                                  
-                                                @endcan
-                                            </td>
-                                        </tr>
-                                    @endif
+                                        @if (isset($session->user))
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">{{$session->user ? $session->user->users : 'Sin Inicio de Sesión'}}</td>
+                                                <td class="sorting_1">{{$session->ip_address}}</td>
+                                                <td class="sorting_1">{{\Carbon\Carbon::createFromTimeStamp($session->last_activity)->diffForhumans()}}</td>
+                                                <td class="sorting_1">
+                                                    {{-- @can('resenna.show') --}}
+                                                        <a class="btn btn-info" title="Mostrar" href="{{ route('sessions.show', $session->session_id) }}"><i class='fa fa-eye'></i></a>
+                                                    {{-- @endcan
+                                                    @can('sessions.destroy') --}}
+                                                        {!! Form::open(['method' => 'DELETE', 'route' => ['sessions.destroy', $session->session_id], 'style'=>'display:inline', 'class' => 'eliminar']) !!}
+                                                            {!! Form::button('<i class="fa fa-window-close"></i>', ['type' => 'submit', 'class' => 'btn btn-danger', 'Title' => 'Eliminar']) !!}
+                                                        {!! Form::close() !!}                                                  
+                                                    {{-- @endcan --}}
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
@@ -101,22 +101,6 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card card-primary">
-                        <div class="card-header text-primary">
-                            <h5> Coordenadas Geográficas</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    @include('partials.maps.index')
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
 </section>

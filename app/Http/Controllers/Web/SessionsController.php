@@ -8,7 +8,6 @@ use App\Events\TrazasEvent;
 use App\Http\Constants;
 use App\Models\Sessions;
 use App\Traits\HistorialAccionesTrait;
-use Cornford\Googlmapper\Facades\MapperFacade as Mapper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,8 +19,8 @@ class SessionsController extends Controller
 
     function __construct(Sessions $sessions)
     {
-        $this->middleware('can:sessions.index')->only('index');
-        $this->middleware('can:sessions.destroy')->only('destroy');
+        // $this->middleware('can:sessions.index')->only('index');
+        // $this->middleware('can:sessions.destroy')->only('destroy');
         $this->sessions = $sessions;
     }
     /**
@@ -42,31 +41,7 @@ class SessionsController extends Controller
             $valores_modificados = 'N/A';
         }
         event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Sessions'));
-
-        // Mapa de Google para Georeferencias las Coordenadas del Lugar de Aprehensión
-        // ROADMAP, TERRAIN o SATELLITE
-        Mapper::map(10.216264, -66.859045, ['marker' => false, 'zoom' => 6.5, 'center' => true, 'type' => 'TERRAIN']);
-        $i = 0;
-        while($i < count($sessions))
-        {
-            if($sessions[$i]['coordinates'] != null)
-            {
-                $ex = explode(',', $sessions[$i]['coordinates']);
-                $long = $ex[0];
-                $lat = $ex[1];
-
-                Mapper::marker($long, $lat, [
-                    'animation' => 'DROP', 
-                    'clickable' => true, 
-                    'title' => $sessions[$i]['users'],
-                    'content' => $sessions[$i]['users']
-                ]); 
-            }
-            $i++;
-        }
-
         $countSessions = $this->sessions->count();
-
         return view('sessions.index', compact('sessions', 'countSessions'));
     }
 
