@@ -2,23 +2,18 @@
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
-            <label for="">Funcionario Asignado</label>
-            <input type="text" class="form-control" value="{{$user->funcionario->jerarquia->valor.'. '.$user->funcionario->person->primer_nombre.' '.$user->funcionario->person->segundo_nombre}}" readonly>
+            <label for="">Persona Asignada</label>
+            <input type="text" class="form-control" value="{{$user->person->primer_nombre.' '.$user->person->segundo_nombre}}" readonly>
         </div>
     </div>
+    
     <div class="col-xs-3 col-sm-3 col-md-3">
         <div class="form-group">
             <label for="">Roles</label>
             {!! Form::select('roles', $roles, $user->role, array('class' => 'form-control', 'readonly')) !!}
         </div>
     </div>
-    <div class="col-xs-3 col-sm-3 col-md-3">
-        <div class="form-group">
-            <label for="email">Teléfono</label>
-            {!! Form::text('telefono', $user->funcionario->person->telefono, array('class' => 'form-control', 'readonly')) !!}
-        </div>
-    </div>
-    
+
     <div class="col-xs-3 col-sm-3 col-md-3">
         <div class="form-group">
             <label for="email">Estatus</label>

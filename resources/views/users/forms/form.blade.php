@@ -4,8 +4,8 @@
     <div class="row">
         <div class="col-xs-5 col-sm-5 col-md-5">
             <div class="form-group">
-                <label for="">Funcionario Asignado</label>
-                <input type="text" class="form-control" value="{{$user->funcionario->jerarquia->valor.'. '.$user->funcionario->person->primer_nombre.' '.$user->funcionario->person->primer_apellido}}" readonly>
+                <label for="">Persona Asignada</label>
+                <input type="text" class="form-control" value="{{$user->person->primer_nombre.' '.$user->person->primer_apellido}}" readonly>
             </div>
         </div>
 @else
@@ -13,11 +13,11 @@
     <div class="row">
         <div class="col-xs-5 col-sm-5 col-md-5">
             <div class="form-group">
-                <label for="">Asignar Funcionario</label>
-                <select name="id_funcionario" id="" class="form-control select2" required>
+                <label for="">Asignar Persona</label>
+                <select name="id_person" id="" class="form-control select2" required>
                     <option value="">Seleccione</option>
-                @foreach ($funcionarios as $funcionario)
-                    <option value="{{ $funcionario->id }}"> {{$funcionario->valor.'. '.$funcionario->primer_nombre.' '.$funcionario->primer_apellido }}</option>
+                @foreach ($persons as $person)
+                    <option value="{{ $person->id }}"> {{$person->primer_nombre.' '.$person->primer_apellido }}</option>
                 @endforeach
                 </select>
             </div>
@@ -83,33 +83,6 @@
     @endif
     </div>
     <div class="row">
-        <div class="col-xs-2 col-sm-2 col-md-2">
-            <div class="form-group">
-                <div class="custom-control custom-switch">
-                    {{ Form::checkbox('acceso_app', null, isset($user->acceso_app) && $user->acceso_app ? true : false, [
-                        'class' => 'custom-control-input', 
-                        'id' => 'darkSwitch',
-                        isset($user->acceso_app) && $user->acceso_app ? 'checked' : ''
-                        ]) 
-                    }}
-                    <label for="darkSwitch" class="custom-control-label">Acceso APP</label>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-            <div class="form-group">
-                <div class="custom-control custom-switch">
-                    {{ Form::checkbox('two_factors_auth', null, 
-                        isset($user->two_factors_auth) && $user->two_factors_auth ? true : false, [
-                        'class' => 'custom-control-input', 
-                        'id' => 'two_factors_auth',
-                        isset($user->two_factors_auth) && $user->two_factors_auth ? 'checked' : ''
-                        ]) 
-                    }}
-                    <label for="two_factors_auth" class="custom-control-label">Autenticación de dos factores (2FA)</label>
-                </div>
-            </div>
-        </div>
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 <div class="custom-control custom-switch">

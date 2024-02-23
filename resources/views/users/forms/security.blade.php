@@ -32,18 +32,6 @@
     <div class="col-xs-4 col-sm-4 col-md-4 mt-4">
         <div class="form-group">
             <div class="custom-control custom-switch">
-                {{ Form::checkbox('two_factors_auth', isset($user->two_factors_auth) && $user->two_factors_auth ? 1 : 0, 
-                    isset($user->two_factors_auth) && $user->two_factors_auth ? true : false, [
-                    'class' => 'custom-control-input', 
-                    'id' => 'two_factors_auth',
-                    isset($user->two_factors_auth) && $user->two_factors_auth ? 'checked' : ''
-                    ]) 
-                }}
-                <label for="two_factors_auth" class="custom-control-label">Autenticación de dos factores (2FA)</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="custom-control custom-switch">
                 {{ Form::checkbox('security_questions', isset($user->security_questions) && $user->security_questions ? 1 : 0, 
                     isset($user->security_questions) && $user->security_questions ? true : false, [
                     'class' => 'custom-control-input', 
@@ -63,13 +51,5 @@
                 {!! Form::button('<i class="fa fa-trash"> Eliminar Preguntas de Seguridad</i>', ['type' => 'submit', 'class' => 'btn btn-danger']) !!}
             </div>
         </div>
-    {!! Form::close() !!}
-
-    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.restart.2fa', $user->id], 'class' => 'confirmation2FA']) !!}
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            {!! Form::button('<i class="fa fa-recycle"> Reiniciar Autenticación de dos factores</i>', ['type' => 'submit', 'class' => 'btn btn-warning']) !!}
-        </div>
-    </div>
     {!! Form::close() !!}
 </div>

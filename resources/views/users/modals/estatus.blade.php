@@ -15,7 +15,7 @@
                                 <br>
                                 @foreach ($Users as $user)
                                 {!! Form::checkbox('user[]', $user->id, array('class' => 'form-control', 'id' => 'user'.$user->id)) !!}
-                                {!! Form::label($user->funcionario->jerarquia->valor.'. '.$user->funcionario->person->primer_nombre.' '.$user->funcionario->person->primer_apellido.' || '.$user->users.' - '.($user->status ? 'Activo' : 'Inactivo')) !!}
+                                {!! Form::label($user->person->primer_nombre.' '.$user->person->primer_apellido.' || '.$user->users.' - '.($user->status ? 'Activo' : 'Inactivo')) !!}
                                 <br>
                             @endforeach
                             </div>

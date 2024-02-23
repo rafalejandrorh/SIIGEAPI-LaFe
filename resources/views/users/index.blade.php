@@ -53,12 +53,10 @@
                                         {!! Form::select('tipo_busqueda', [
                                             '' => 'Ver todos',
                                             'cedula' => 'Cédula',
-                                            'credencial' => 'Credencial',
-                                            'jerarquia' => 'Jerarquía', 
                                             'usuario' => 'Usuario', 
                                             'estatus' => 'Estatus',
-                                            'nombre' => 'Primer Nombre del Funcionario',
-                                            'apellido' => 'Primer Apellido del Funcionario',
+                                            'nombre' => 'Primer Nombre',
+                                            'apellido' => 'Primer Apellido',
                                         ], 
                                         'Seleccionar', ['class' => 'form-control select2']) !!}
                                     </div>
@@ -77,9 +75,9 @@
                                 <div class="row">
                                     <div class="col-xs-9 col-sm-9 col-md-9">
                                         <div class="form-group">
-                                            @can('users.create')
+                                            {{-- @can('users.create') --}}
                                                 <a class="btn btn-success" href="{{ route('users.create') }}"><i class="fas fa-plus"></i> Crear</a>                        
-                                            @endcan
+                                            {{-- @endcan --}}
                                         </div>
                                     </div>
                                     <div class="col-xs-2 col-sm-2 col-md-2 text-right"> 
@@ -89,17 +87,16 @@
                                     </div>
                                     <div class="col-xs-1 col-sm-1 col-md-1 text-right">
                                         <div class="form-group">
-                                            @can('users.excel')
+                                            {{-- @can('users.excel') --}}
                                                 <a class="btn btn-success" href="{{ route('users.export.excel') }}"><i class="fas fa-file-excel"></i></a>                        
-                                            @endcan
+                                            {{-- @endcan --}}
                                         </div>
                                     </div>
                                 </div>
                                     <table class="table table-striped mt-2 display dataTable table-hover">
                                         <thead>
                                             <tr role="row">
-                                                <th>Funcionario</th>
-                                                <th>Jerarquía</th>
+                                                <th>Persona</th>
                                                 <th>Usuario</th>
                                                 <th>Estatus</th>
                                                 <th>Acciones</th>
@@ -107,31 +104,28 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($Users as $user)
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">{{ $user->funcionario->person->primer_nombre.' '.$user->funcionario->person->primer_apellido }}</td>
-                                                <td class="sorting_1">{{ $user->funcionario->jerarquia->valor }}</td>
-                                                <td class="sorting_1">{{ $user->users }}</td>
-                                                <td class="sorting_1">
-                                                    @can('users.update_status')
-                                                        {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update_status', $user->id], 'class' => 'estatus']) !!}
-                                                            {!! Form::button($user->status ? 'Activo' : 'Inactivo', ['type' => 'submit', 'class' => $user->status ? 'btn btn-info' : 'btn btn-danger', 'Title' => 'Modificar Estatus']) !!}
-                                                        {!! Form::close() !!} 
-                                                    @elsecan('users.index')
-                                                        <span class="badge badge-pill badge-{{$user->status ? 'info' : 'danger' }}">{{$user->status ? 'Activo' : 'Inactivo' }}</span>
-                                                    @endcan
-                                                </td>
-                                                <td align="center">
-                                                    @can('users.show')
-                                                        <a class="btn btn-info" Title="Mostrar" href="{{ route('users.show', $user->id) }}"><i class='fa fa-eye'></i></a>
-                                                    @endcan
-                                                    @can('users.edit')
-                                                        <a class="btn btn-primary" Title="Editar" href="{{ route('users.edit', $user->id) }}"><i class='fa fa-edit'></i></a>
-                                                    @endcan
-                                                </td>
-                                            </tr>
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1">{{ $user->person->primer_nombre.' '.$user->person->primer_apellido }}</td>
+                                                    <td class="sorting_1">{{ $user->users }}</td>
+                                                    <td class="sorting_1">
+                                                        {{-- @can('users.update_status') --}}
+                                                            {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update_status', $user->id], 'class' => 'estatus']) !!}
+                                                                {!! Form::button($user->status ? 'Activo' : 'Inactivo', ['type' => 'submit', 'class' => $user->status ? 'btn btn-info' : 'btn btn-danger', 'Title' => 'Modificar Estatus']) !!}
+                                                            {!! Form::close() !!} 
+                                                        {{-- @elsecan('users.index')
+                                                            <span class="badge badge-pill badge-{{$user->status ? 'info' : 'danger' }}">{{$user->status ? 'Activo' : 'Inactivo' }}</span>
+                                                        @endcan --}}
+                                                    </td>
+                                                    <td align="center">
+                                                        {{-- @can('users.show') --}}
+                                                            <a class="btn btn-info" Title="Mostrar" href="{{ route('users.show', $user->id) }}"><i class='fa fa-eye'></i></a>
+                                                        {{-- @endcan
+                                                        @can('users.edit') --}}
+                                                            <a class="btn btn-primary" Title="Editar" href="{{ route('users.edit', $user->id) }}"><i class='fa fa-edit'></i></a>
+                                                        {{-- @endcan --}}
+                                                    </td>
+                                                </tr>
                                             @endforeach
-
-                                            
                                         </tbody>
                                     </table>
                                 <div class="pagination justify-content-end">

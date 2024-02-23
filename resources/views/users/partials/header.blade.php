@@ -1,1 +1,1 @@
-@section('title', 'SIREPOL | Usuarios')
+@section('title', 'SIIGEAPI | Usuarios')

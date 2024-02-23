@@ -49,7 +49,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function persona()
+    public function person()
     {
         return $this->belongsto(Person::class, 'id_person');
     }

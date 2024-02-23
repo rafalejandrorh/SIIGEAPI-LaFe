@@ -49,7 +49,7 @@ class ResetPassword extends Notification
         ->action(Lang::get('Cambiar contraseña'), url(config('app.url') . route('password.reset', ['token' => $this->token, 'email' => $notifiable->getEmailForPasswordReset()], false)))
         ->line(Lang::get('Este enlace es válido durante los proximos :count minutos.', ['count' => config('auth.passwords.' . config('auth.defaults.passwords') . '.expire')]))
         ->line(Lang::get('Si tú no realizaste la solicitud de reestablecimiento de contraseña, solo ignora este mensaje. '))
-        ->salutation(Lang::get('Atentamente, SIREPOL'));
+        ->salutation(Lang::get('Atentamente, Seguros La Fé'));
     }
 
     /**

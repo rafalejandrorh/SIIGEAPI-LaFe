@@ -13,8 +13,8 @@
     </div>
     <div class="col-xs-8 col-sm-8 col-md-8">
         <div class="form-group">
-            <label for="email">Funcionario</label>
-            {!! Form::text('funcionario_asignado', $user->funcionario->jerarquia->valor.'. '.$user->funcionario->person->primer_nombre.' '.$user->funcionario->person->primer_apellido, array('class' => 'form-control', 'readonly')) !!}
+            <label for="email">Persona</label>
+            {!! Form::text('funcionario_asignado', $user->person->primer_nombre.' '.$user->person->primer_apellido, array('class' => 'form-control', 'readonly')) !!}
         </div>
     </div>
     <div class="col-xs-4 col-sm-4 col-md-4">
