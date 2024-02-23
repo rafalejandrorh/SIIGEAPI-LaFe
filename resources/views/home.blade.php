@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'SIREPOL | Inicio')
+@section('title', 'SIIGEAPI | Inicio')
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="col-md-12 col-xl-12">
                                 <div class="login-brand">
-                                    <center><img src="{{ asset('public/img/logo-seguros-la-fe.jpg') }}" alt="logo" width="430" height="200" class="shadow-light"></center>
+                                    <center><img src="{{ asset('public/img/logo-seguros-la-fe.jpg') }}" alt="logo" width="250" height="200" class="shadow-light"></center>
                                 </div>
                                 @yield('content')
                             </div>
