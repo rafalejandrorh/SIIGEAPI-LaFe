@@ -70,10 +70,11 @@ class Constants
     const HTTP_DESCRIPTION_BAD_REQUEST = 'Bad Request';
     const HTTP_DESCRIPTION_FORBIDDEN = 'Forbidden';
     const HTTP_DESCRIPTION_UNAUTHORIZED = 'Unauthorized';
-    const HTTP_DESCRIPTION_OK = 'Ok';
+    const HTTP_DESCRIPTION_OK = 'OK';
 
     const HTTP_MESSAGE_FORBIDDEN = 'You don`t have permission to access this service';
     const HTTP_MESSAGE_OK = 'Operation Success';
+    const HTTP_MESSAGE_NOK = 'Operation Unsuccessful';
 
     // Description´s Response
     // Ok (Login)

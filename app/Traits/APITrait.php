@@ -171,7 +171,7 @@ trait APITrait
     {
         $servicesAllowed = [];
         foreach($services as $value) {
-            $servicesAllowed[] = $value['nombre'];
+            $servicesAllowed[] = $value['metodo'];
         }
         return $servicesAllowed;
     }
@@ -201,8 +201,8 @@ trait APITrait
 
     public function saveTrazas()
     {
-        if(isset($this->request['metodo']) && is_array($this->request['metodo'])){
-            $this->request['metodo'] = print_r($this->request['metodo'], true);
+        if(isset($this->service) && is_array($this->service)){
+            $this->service = print_r($this->service, true);
         }
 
         if(isset($this->request['request']) && is_array($this->request['request'])){
@@ -214,14 +214,14 @@ trait APITrait
             $trazaAPI->id_user = $this->request['idUser'];
         }
 
-        if(isset($this->request['idDependencia'])) {
-            $trazaAPI->id_dependencia = $this->request['idDependencia'];
+        if(isset($this->request['idEmpresa'])) {
+            $trazaAPI->id_empresa = $this->request['idEmpresa'];
         }
 
         $trazaAPI->ip = $this->request['ip'];
         $trazaAPI->mac = $this->request['mac'];
         $trazaAPI->fecha_request = date('Y-m-d H:i:s');
-        $trazaAPI->action = $this->request['metodo'] ?? null;
+        $trazaAPI->action = $this->service ?? null;
         $trazaAPI->response = json_encode($this->data, true);
         $trazaAPI->request = $this->request['request'];
         $trazaAPI->token = $this->bearerToken;

@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\FuncionarioController;
-use App\Http\Controllers\API\ResennaController;
+use App\Http\Controllers\API\PolizasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,17 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::get('/', function() {
     $code = App\Http\Constants::HTTP_CODE_UNAUTHORIZED;
     $status = App\Http\Constants::DESCRIPTION_ERROR_UNAUTHORIZED;
     return response()->json([
             'code' => $code,
             'status' => $status,
-            'message' => 'Contacte a la Unidad de Tecnologia de la Policia del Municipio Cristobal Rojas para solicitar acceso'
+            'message' => 'Contacte a la Unidad de Tecnologia de Seguros La Fé para solicitar acceso'
         ],
         $code
     );
@@ -35,12 +30,8 @@ Route::get('/', function() {
 // Servicios a Externos Autenticados por Bearer Token
 Route::middleware(['token'])->group(function() {
     Route::prefix('/v1')->group(function() {
-        Route::prefix('/funcionario')->group(function() {
-            //Route::post('/consulta/{tipo}/{valor}', [FuncionarioController::class, 'SearchFuncionario']);
-        });
-
-        Route::prefix('/resenna')->group(function() {
-            //Route::post('/consulta/{cedula}', [ResennaController::class, 'SearchResennado']);
+        Route::prefix('/polizas')->group(function() {
+            Route::post('/emision', [PolizasController::class, 'broadcast']);
         });
     });
 });
@@ -53,12 +44,8 @@ Route::prefix('/v2')->group(function() {
     });
     
     Route::middleware(['auth:sanctum', 'access.app', 'status.user'])->group(function() {
-        Route::prefix('/funcionario')->group(function() {
-            //Route::post('/consulta/{tipo}/{valor}', [FuncionarioController::class, 'SearchFuncionario']);
-        });
-
-        Route::prefix('/resenna')->group(function() {
-            //Route::post('/consulta/{cedula}', [ResennaController::class, 'SearchResennado']);
+        Route::prefix('/polizas')->group(function() {
+            //Route::post('/emision', [PolizasController::class, 'broadcast']);
         });
     });
 });

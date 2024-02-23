@@ -102,7 +102,7 @@ class ServiciosController extends Controller
      */
     public function update(Request $request, Servicios $servicio)
     {
-        $exists = $this->servicios->Where('nombre', $request->nombre)->exists();
+        $exists = $this->servicios->Where('nombre', $request->nombre)->where('id', '!=', $servicio->id)->exists();
         if($exists) {
             Alert()->warning('Este nombre ya es usado por otro Servicio registrado en el Sistema');
             return back(); 

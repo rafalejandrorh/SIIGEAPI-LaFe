@@ -3,24 +3,24 @@
 namespace App\Http\Middleware;
 
 use App\Http\Constants;
-use App\Models\Dependencias_Servicios;
+use App\Models\Servicios_Empresas;
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\Token_Dependencias;
+use App\Models\Token_Empresas;
 use App\Traits\APITrait;
-use App\Traits\DependenciaServiciosTrait;
+use App\Traits\EmpresaServiciosTrait;
 
 class CheckToken
 {
     use APITrait;
-    use DependenciaServiciosTrait;
+    use EmpresaServiciosTrait;
 
-    private $dependencias_servicios;
+    private $serviciosEmpresas;
     private $token;
 
-    public function __construct(Dependencias_Servicios $dependencias_servicios, Token_Dependencias $token)
+    public function __construct(Servicios_Empresas $serviciosEmpresas, Token_Empresas $token)
     {
-        $this->dependencias_servicios = $dependencias_servicios;
+        $this->serviciosEmpresas = $serviciosEmpresas;
         $this->token = $token;
     }
 
@@ -40,26 +40,26 @@ class CheckToken
         $code = Constants::HTTP_CODE_UNAUTHORIZED;
         $description = Constants::HTTP_DESCRIPTION_UNAUTHORIZED;
 
-        $tokenDependencias = $this->token::join('dependencias', 'dependencias.id', '=', 'token_dependencias.id_dependencia');
+        $tokenEmpresa = $this->token::join('empresas', 'empresas.id', '=', 'token_empresas.id_empresa');
         if(isset($bearerToken) && $bearerToken != null) {
             if(isset($entity)) {
                 
-                $dependencia = $this->token::join('dependencias', 'dependencias.id', '=', 'token_dependencias.id_dependencia')->Where('seudonimo', $headers['x-entity']);
-                $existsEntity = $dependencia->exists();
+                $empresa = $this->token::join('empresas', 'empresas.id', '=', 'token_empresas.id_empresa')->Where('seudonimo', $headers['x-entity']);
+                $existsEntity = $empresa->exists();
                 
                 if($existsEntity) {
                     
-                    $dependencia = $dependencia->first();
-                    if($dependencia['token'] === $bearerToken) {
+                    $empresa = $empresa->first();
+                    if($empresa['token'] === $bearerToken) {
 
-                        $token = $tokenDependencias->Where('token', $bearerToken);
+                        $token = $tokenEmpresa->Where('token', $bearerToken);
                         $dataToken = $token->first();
                         $today = date('Y-m-d H:i:s');
 
                         if($today < $dataToken['expired_at'] && $dataToken['estatus']) {
-                            $servicesAllowed = $this->rebuildArrayServices($this->getServicesDependencia($dependencia['id_dependencia']));
+                            $servicesAllowed = $this->rebuildArrayServices($this->getServiciosEmpresa($empresa['id_empresa']));
                             $request['servicesAllowed'] = $servicesAllowed;
-                            $request['idDependencia'] = $dependencia['id_dependencia'];
+                            $request['idEmpresa'] = $empresa['id_empresa'];
                             $code = Constants::HTTP_CODE_OK;
                             $description = Constants::DESCRIPTION_OK_TOKEN;
                             
