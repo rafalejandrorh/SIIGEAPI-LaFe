@@ -39,9 +39,6 @@ class PolizasController extends Controller
         ];
         
         if (!$this->validateRequest($validateRequest, $rules)) {
-
-            $tipo = $request->tipo;
-            $valor = $request->valor;
             $parametersRequested = [
                 'ip' => $request->ip ?? ':::1',
                 'mac' => $request->mac ?? '00:00:00:00:00',
@@ -71,7 +68,7 @@ class PolizasController extends Controller
             $this->calculateTimeExecution();
             $this->saveTrazas();
         }
-
         return response()->json($this->getResponse(), $this->getCode(), $this->getHeader());
     }
+    
 }
