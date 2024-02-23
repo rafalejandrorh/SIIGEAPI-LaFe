@@ -8,19 +8,13 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 <label for="email">Dependencia</label>
-                {!! Form::text('dependencia', $token->Dependencias->nombre, array('class' => 'form-control', 'readonly')) !!}
+                {!! Form::text('dependencia', $token->empresas->nombre, array('class' => 'form-control', 'readonly')) !!}
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
-                <label for="email">Organismo</label>
-                {!! Form::text('organismo', $token->Dependencias->organismo, array('class' => 'form-control', 'readonly')) !!}
-            </div>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4">
-            <div class="form-group">
-                <label for="email">Ministerio</label>
-                {!! Form::text('ministerio', $token->Dependencias->ministerio, array('class' => 'form-control', 'readonly')) !!}
+                <label for="email">Departamento</label>
+                {!! Form::text('departamento', $token->empresas->departamento, array('class' => 'form-control', 'readonly')) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

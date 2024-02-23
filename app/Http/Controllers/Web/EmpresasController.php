@@ -9,30 +9,30 @@ use App\Models\Genero;
 use App\Models\Person;
 use App\Events\TrazasEvent;
 use App\Http\Constants;
-use App\Models\Dependencias;
-use App\Models\Dependencias_Servicios;
+use App\Models\Empresas;
 use App\Models\Servicios;
+use App\Models\Servicios_Empresas;
 use App\Traits\GeneroTrait;
 
-class DependenciasController extends Controller
+class EmpresasController extends Controller
 {
     use GeneroTrait;
 
-    private $dependencias;
+    private $empresas;
     private $servicios;
-    private $dependencias_servicios;
+    private $servicios_empresas;
     private $person;
     private $genero;
 
-    function __construct(Dependencias $dependencias, Servicios $servicios, Dependencias_Servicios $dependencias_servicios,
+    function __construct(Empresas $empresas, Servicios $servicios, Servicios_Empresas $servicios_empresas,
     Person $person, Genero $genero)
     {
-        $this->middleware('can:dependencias.index')->only('index');
-        $this->middleware('can:dependencias.create')->only('create');
-        $this->middleware('can:dependencias.show')->only('show');
-        $this->middleware('can:dependencias.edit')->only('edit', 'update');
-        $this->dependencias_servicios = $dependencias_servicios;
-        $this->dependencias = $dependencias;
+        // $this->middleware('can:dependencias.index')->only('index');
+        // $this->middleware('can:dependencias.create')->only('create');
+        // $this->middleware('can:dependencias.show')->only('show');
+        // $this->middleware('can:dependencias.edit')->only('edit', 'update');
+        $this->servicios_empresas = $servicios_empresas;
+        $this->empresas = $empresas;
         $this->servicios = $servicios;
         $this->person = $person;
         $this->genero = $genero;
@@ -45,15 +45,15 @@ class DependenciasController extends Controller
     public function index(Request $request)
     {
         $request->all();
-        $dependencias = $this->dependencias->search($request);
+        $empresas = $this->empresas->search($request);
         if(isset($request->tipo_busqueda) && isset($request->buscador)) {
             $id_user = Auth::user()->id;
             $id_Accion = Constants::BUSQUEDA;
             $valores_modificados = 'Tipo de Búsqueda: '.$request->tipo_busqueda.'. Valor Buscado: '.$request->buscador;
-            event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Dependencias'));
+            event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Empresas'));
         }
         
-        return view('dependencias.index', compact('dependencias'));
+        return view('empresas.index', compact('empresas'));
     }
 
     /**
@@ -65,7 +65,7 @@ class DependenciasController extends Controller
     {
         $genero = $this->pluckGenero();
         $servicios = $this->servicios->Estatus(true)->get();
-        return view('dependencias.create',compact('genero', 'servicios'));
+        return view('empresas.create',compact('genero', 'servicios'));
     }
 
     /**
@@ -91,10 +91,9 @@ class DependenciasController extends Controller
         }
         $person = $this->person->where('cedula', $cedula)->first();
 
-        $dependencia = $this->dependencias->create([
-            'nombre' => $request->dependencia,
-            'ministerio' => $request->ministerio,
-            'organismo' => $request->organismo,
+        $empresa = $this->empresas->create([
+            'nombre' => $request->nombre,
+            'departamento' => $request->departamento,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
             'seudonimo' => $request->seudonimo,
@@ -105,8 +104,8 @@ class DependenciasController extends Controller
         $nombre_servicio = null;
         while($i < count($request->id_servicios))
         {
-            $this->dependencias_servicios->create([
-                'id_dependencia' => $dependencia->id,
+            $this->servicios_empresas->create([
+                'id_empresa' => $empresa->id,
                 'id_servicio' => $request->id_servicios[$i]
             ]);
 
@@ -122,15 +121,15 @@ class DependenciasController extends Controller
         $genero = $this->genero->Where('id', $request['id_genero'])->first();
         $id_user = Auth::user()->id;
         $id_Accion = Constants::REGISTRO;
-        $valores_modificados = 'Datos de la Dependencia: '.$request->organismo.', '.$request->dependencia.', Adscrito al: '.$request->ministerio.
+        $valores_modificados = 'Nombre de la Empresa: '.$request->nombre.', Departamento: '.$request->departamento.
         '|| Datos del Representante: '.$person['letra_cedula'].$person['cedula'].
         ' || '.$person['primer_nombre'].', '.$person['segundo_nombre'].' || '.
         $person['primer_apellido'].', '.$person['segundo_apellido'].' || '.
         $genero['valor'].' || '.$person['telefono'].' || '.$person['correo_electronico'].' || Servicios a Consumir: '.$nombre_servicio;
-        event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Dependencias'));
+        event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Empresas'));
 
-        Alert()->success('Dependencia Creada Satisfactoriamente');
-        return redirect()->route('dependencias.index');
+        Alert()->success('Empresa Creada Satisfactoriamente');
+        return redirect()->route('empresas.index');
     }
 
     /**
@@ -139,13 +138,13 @@ class DependenciasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dependencias $dependencia)
+    public function edit(Empresas $empresa)
     {
         $genero = $this->pluckGenero();
         $servicios = $this->servicios->Estatus(true)->get();
-        $dependencias_servicios = $this->dependencias_servicios->join('nomenclador.servicios', 'servicios.id', 'dependencias_servicios.id_servicio')
-        ->where('dependencias_servicios.id_dependencia', $dependencia->id)->pluck('servicios.nombre', 'servicios.id')->all();
-        return view('dependencias.edit', compact('dependencia', 'genero', 'servicios', 'dependencias_servicios'));
+        $servicios_empresas = $this->servicios_empresas->join('nomenclador.servicios', 'servicios.id', 'servicios_empresas.id_servicio')
+        ->where('servicios_empresas.id_empresa', $empresa->id)->pluck('servicios.nombre', 'servicios.id')->all();
+        return view('empresas.edit', compact('empresa', 'genero', 'servicios', 'servicios_empresas'));
     }
 
     /**
@@ -157,17 +156,16 @@ class DependenciasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $dependencias = $this->dependencias->find($id, ['id']);
-        $dependencias->update([
-            'nombre' => $request->dependencia,
-            'organismo' => $request->organismo,
-            'ministerio' => $request->ministerio,
+        $empresas = $this->empresas->find($id, ['id']);
+        $empresas->update([
+            'nombre' => $request->nombre,
+            'departamento' => $request->departamento,
             'telefono' => $request->telefono,
             'correo' => $request->correo,
             'seudonimo' => $request->seudonimo
         ]);
 
-        $person = $dependencias->Where('id', $id)->select('id_person')->first();
+        $person = $empresas->Where('id', $id)->select('id_person')->first();
         $id_person = $person['id_person'];
 
         $personas = $this->person->find($id_person);
@@ -181,18 +179,18 @@ class DependenciasController extends Controller
             'id_genero' => $request->id_genero, 
         ]);
 
-        $ExistsDependenciaServicio = $this->dependencias_servicios->where('id_dependencia', $id)->exists();
-        if($ExistsDependenciaServicio) {
-            $dependenciaServicio = $this->dependencias_servicios->where('id_dependencia', $id);
-            $dependenciaServicio->delete();  
+        $ExistsServiciosEmpresa = $this->servicios_empresas->where('id_dependencia', $id)->exists();
+        if($ExistsServiciosEmpresa) {
+            $serviciosEmpresa = $this->servicios_empresas->where('id_dependencia', $id);
+            $serviciosEmpresa->delete();  
         }
 
         $i = 0;
         $nombre_servicio = null;
         while($i < count($request->id_servicios))
         {
-            $this->dependencias_servicios->create([
-                'id_dependencia' => $id,
+            $this->servicios_empresas->create([
+                'id_empresa' => $id,
                 'id_servicio' => $request->id_servicios[$i]
             ]);
 
@@ -209,13 +207,13 @@ class DependenciasController extends Controller
 
         $id_user = Auth::user()->id;
         $id_Accion = Constants::ACTUALIZACION;
-        $valores_modificados = 'Datos de la Dependencia: '.$request->organismo.', '.$request->dependencia.', Adscrito al: '.$request->ministerio.
+        $valores_modificados = 'Nombre de la Empresa: '.$request->organismo.', Departamento: '.$request->dependencia.
         '|| Datos del Representante: '.$request->letra_cedula.$request->cedula.' || '.
         $request->primer_nombre.', '.$request->segundo_nombre.' || '.$request->primer_apellido.', '.
         $request->segundo_apellido.' || '.$genero['valor'].' || '.$request->fecha_nacimiento.' || '.$request->telefono.' || '.$request->correo.' || Servicios a Consumir: '.$nombre_servicio;
-        event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Dependencias'));
+        event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Empresas'));
 
-        Alert()->success('Dependencia Actualizada Satisfactoriamente');
-        return redirect()->route('dependencias.index');
+        Alert()->success('Empresa Actualizada Satisfactoriamente');
+        return redirect()->route('empresas.index');
     }
 }

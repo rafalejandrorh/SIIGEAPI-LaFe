@@ -13,9 +13,9 @@
         <td class="sorting_1">{{$value->acciones->valor}}</td>
         <td class="sorting_1">{{ date('d/m/Y H:i:s', strtotime($value->created_at)) }}</td>
         <td>
-            @can('trazas.show')
+            {{-- @can('trazas.show') --}}
                 <a class="btn btn-info" Title="Mostrar" href="{{ route($route, $value->id) }}"><i class='fa fa-eye'></i></a>
-            @endcan
+            {{-- @endcan --}}
         </td>
     </tr>
     @endforeach

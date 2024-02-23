@@ -1,23 +1,22 @@
 @extends('layouts.app')
-@extends('dependencias.partials.header')
+@extends('empresas.partials.header')
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading text-primary"><b>Dependencias</b></h3>
+            <h3 class="page__heading text-primary"><b>Empresas</b></h3>
         </div>
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-primary">
                         <div class="card-body">
-                            {!! Form::open(array('route' => 'dependencias.index','method' => 'GET')) !!}
+                            {!! Form::open(array('route' => 'empresas.index','method' => 'GET')) !!}
                             <div class="row">
                                 <div class="col-xs-3 col-sm-3 col-md-5">
                                     <div class="form-group">
                                         {!! Form::select('tipo_busqueda', ['' => 'Ver todos',
-                                        'dependencia' => 'Dependencia',
-                                        'ministerio' => 'Ministerio',
-                                        'organismo' => 'Organismo',
+                                        'nombre' => 'Nombre',
+                                        'departamento' => 'Departamento',
                                         'seudonimo' => 'Seudónimo' 
                                         ], 
                                         'Seleccionar', array('class' => 'form-control select2')) !!}
@@ -35,42 +34,40 @@
                             {!! Form::close() !!}
                                 <div class="row">
                                     <div class="col-xs-9 col-sm-9 col-md-9">
-                                        @can('dependencias.create')
-                                            <a class="btn btn-success" href="{{ route('dependencias.create') }}"><i class="fa fa-plus"></i> Registrar</a>                        
-                                        @endcan
+                                        {{-- @can('empresas.create') --}}
+                                            <a class="btn btn-success" href="{{ route('empresas.create') }}"><i class="fa fa-plus"></i> Registrar</a>                        
+                                        {{-- @endcan --}}
                                     </div>
                                 </div>
                                     <table class="table table-striped mt-2 display dataTable table-hover">
                                         <thead>
                                             <tr role="row">
-                                                <th>Dependencia</th>
-                                                <th>Organismo</th>
-                                                <th>Ministerio</th>
+                                                <th>Nombre</th>
+                                                <th>Departamento</th>
                                                 <th>Seudónimo</th>
                                                 <th>Responsable</th>
                                                 <th>Correo</th>
                                                 <th>Acciones</th>
                                         </thead>
                                         <tbody>
-                                            @foreach ($dependencias as $dependencia)
+                                            @foreach ($empresas as $empresa)
                                             <tr role="row" class="odd">
-                                                <td class="sorting_1">{{$dependencia->nombre}}</td>
-                                                <td class="sorting_1">{{$dependencia->organismo}}</td>
-                                                <td class="sorting_1">{{$dependencia->ministerio}}</td>
-                                                <td class="sorting_1">{{$dependencia->seudonimo}}</td>
-                                                <td class="sorting_1">{{$dependencia->person->primer_nombre.' '.$dependencia->person->primer_apellido}}</td>
-                                                <td class="sorting_1">{{$dependencia->correo}}</td>
+                                                <td class="sorting_1">{{$empresa->nombre}}</td>
+                                                <td class="sorting_1">{{$empresa->departamento}}</td>
+                                                <td class="sorting_1">{{$empresa->seudonimo}}</td>
+                                                <td class="sorting_1">{{$empresa->person->primer_nombre.' '.$empresa->person->primer_apellido}}</td>
+                                                <td class="sorting_1">{{$empresa->correo}}</td>
                                                 <td align="center">
-                                                    @can('dependencias.edit')
-                                                        <a class="btn btn-primary" href="{{ route('dependencias.edit', $dependencia->id) }}"><i class='fa fa-edit'></i></a>
-                                                    @endcan
+                                                    {{-- @can('empresas.edit') --}}
+                                                        <a class="btn btn-primary" href="{{ route('empresas.edit', $empresa->id) }}"><i class='fa fa-edit'></i></a>
+                                                    {{-- @endcan --}}
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 <div class="pagination justify-content-end">
-                                    {{ $dependencias->appends(request()->input())->links() }}
+                                    {{ $empresas->appends(request()->input())->links() }}
                                 </div> 
                             </div>
                         </div>

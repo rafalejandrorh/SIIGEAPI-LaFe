@@ -15,10 +15,10 @@ class PermisosController extends Controller
 
     function __construct(Permissions $permissions)
     {
-        $this->middleware('can:permisos.index')->only('index_permisos');
-        $this->middleware('can:permisos.create')->only('create_permisos');
-        $this->middleware('can:permisos.edit')->only('edit_permisos', 'update_permisos');
-        $this->middleware('can:permisos.destroy')->only('destroy_permisos');
+        // $this->middleware('can:permisos.index')->only('index_permisos');
+        // $this->middleware('can:permisos.create')->only('create_permisos');
+        // $this->middleware('can:permisos.edit')->only('edit_permisos', 'update_permisos');
+        // $this->middleware('can:permisos.destroy')->only('destroy_permisos');
         $this->permissions = $permissions;
     }
     /**
@@ -42,7 +42,7 @@ class PermisosController extends Controller
         }
         event(new TrazasEvent($id_user, $id_Accion, $valores_modificados, 'Traza_Permisos'));
 
-        return view('configuraciones.permisos', compact('permissions'));
+        return view('permisos.index', compact('permissions'));
     }
 
     /**
@@ -52,7 +52,7 @@ class PermisosController extends Controller
      */
     public function create()
     {
-        return view('configuraciones.createPermisos');
+        return view('permisos.create');
     }
 
     /**
@@ -86,7 +86,7 @@ class PermisosController extends Controller
      */
     public function edit(Permissions $permiso)
     {
-        return view('configuraciones.editPermisos', compact('permiso'));
+        return view('permisos.edit', compact('permiso'));
     }
 
     /**

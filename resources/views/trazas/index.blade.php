@@ -43,51 +43,6 @@
                         <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                             <div class="form-group">
-                                <a class="btn btn-primary" href="{{ route('traza_resenna.index') }}"><i class='fa fa-balance-scale'> Reseñas</i></a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-primary">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <div class="form-group">
-                                <a class="btn btn-primary" href="{{ route('traza_bitacoraLlamadas.index') }}"><i class='fa fa-phone'> Bitácora de Llamadas</i></a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-primary">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <div class="form-group">
-                                <a class="btn btn-primary" href="{{ route('traza_funcionarios.index') }}"><i class='fa fa-users'> Funcionarios</i></a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-primary">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <div class="form-group">
                                 <a class="btn btn-primary" href="{{ route('traza_user.index') }}"><i class='fa fa-user'> Usuarios</i></a>
                                 <hr>
                             </div>
@@ -134,51 +89,6 @@
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                             <div class="form-group">
                                 <a class="btn btn-primary" href="{{ route('traza_permisos.index') }}"><i class='fa fa-lock'> Permisos</i></a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-primary">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <div class="form-group">
-                                <a class="btn btn-primary" href="{{ route('traza_rutasAlmacenamiento.index') }}"><i class='fa fa-server'> Rutas de Almacenamiento</i></a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-primary">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <div class="form-group">
-                                <a class="btn btn-primary" href="{{ route('traza_backup.index') }}"><i class='fa fa-upload'> Respaldos</i></a>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card card-primary">
-                    <div class="card-body">
-                        <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <div class="form-group">
-                                <a class="btn btn-primary" href="{{ route('traza_apk.index') }}"><i class='fa fa-mobile'> APK</i></a>
                                 <hr>
                             </div>
                         </div>
@@ -253,7 +163,7 @@
                         <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <center><a class="btn btn-primary text-center" href="{{ route('traza_dependencias.index') }}"><i class='fa fa-building'> Dependencias</i></a></center>
+                                <center><a class="btn btn-primary text-center" href="{{ route('Traza_Empresas.index') }}"><i class='fa fa-building'> Empresas</i></a></center>
                                 <hr>
                             </div>
                         </div>
@@ -261,7 +171,6 @@
                     </div>
                 </div>
             </div>
-
 
         </div>
     </div>

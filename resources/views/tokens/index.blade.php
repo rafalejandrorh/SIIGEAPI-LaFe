@@ -15,7 +15,7 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4">
                                         <div class="form-group">
                                             {!! Form::select('tipo_busqueda', ['' => 'Ver todos',
-                                            'dependencia' => 'Dependencias'], 
+                                            'dependencia' => 'empresas'], 
                                             'Seleccionar', array('class' => 'form-control select2')) !!}
                                         </div>
                                     </div>
@@ -32,15 +32,15 @@
 
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
-                                            @can('tokens.create')
+                                            {{-- @can('tokens.create') --}}
                                                 <a class="btn btn-success" href="{{ route('tokens.create') }}"><i class="fa fa-plus"></i> Crear</a>                        
-                                            @endcan
+                                            {{-- @endcan --}}
                                         </div>
                                     </div>
                                         <table class="table table-striped mt-2 display dataTable table-hover">
                                             <thead>
                                                 <tr role="row">
-                                                    <th>Dependencia</th>
+                                                    <th>Empresa</th>
                                                     <th>Fecha de Generación</th>
                                                     <th>Fecha de Expiración</th>
                                                     <th>Último vez usado</th>
@@ -50,7 +50,7 @@
                                             </thead>
                                                 @foreach ($tokens as $token)
                                                 <tr role="row" class="odd">
-                                                    <td class="sorting_1">{{ $token->Dependencias->nombre }}</td>
+                                                    <td class="sorting_1">{{ $token->empresas->nombre }}</td>
                                                     <td class="sorting_1">{{ date('d/m/Y H:i:s', strtotime($token->created_at)) }}</td>
                                                     
                                                     @if ($token->expired_at >= date('Y-m-d H:i:s'))
@@ -61,26 +61,26 @@
                                                     
                                                     <td class="sorting_1" align="center">{{ $token->last_used_at ? date('d/m/Y H:i:s', strtotime($token->last_used_at)) : 'No Utilizado' }}</td>
 
-                                                    @can('tokens.update_status')
+                                                    {{-- @can('tokens.update_status') --}}
                                                         <td class="sorting_1">
                                                             {!! Form::model($token, ['method' => 'PATCH','route' => ['tokens.update_status', $token->id]]) !!} 
                                                                 {!! Form::button($token->estatus ? 'Activo' : 'Inactivo', ['type' => 'submit', 'class' => $token->estatus ? 'btn btn-info' : 'btn btn-danger']) !!}
                                                             {!! Form::close() !!} 
-                                                    @elsecan('tokens.index')
-                                                        <td class="sorting_1">
+                                                    {{-- @elsecan('tokens.index') --}}
+                                                        {{-- <td class="sorting_1">
                                                             <span class="badge badge-pill badge-{{$token->estatus ? 'info' : 'danger'}}">{{ $token->estatus ? 'Activo' : 'Inactivo' }}</span>
-                                                        </td>
-                                                    @endcan
+                                                        </td> --}}
+                                                    {{-- @endcan --}}
 
                                                     <td align="center">
-                                                        @can('tokens.show')
+                                                        {{-- @can('tokens.show') --}}
                                                             <a class="btn btn-info" href="{{ route('tokens.show', $token->id) }}"><i class='fa fa-eye'></i></a>
-                                                        @endcan
-                                                        @can('tokens.edit')
+                                                        {{-- @endcan --}}
+                                                        {{-- @can('tokens.edit') --}}
                                                             @if ($token->expired_at <= date('Y-m-d H:i:s'))
                                                                 <a class="btn btn-primary" href="{{ route('tokens.edit', $token->id) }}"><i class='fa fa-edit'></i></a> 
                                                             @endif
-                                                        @endcan
+                                                        {{-- @endcan --}}
                                                     </td>
                                                 </tr>
                                                 @endforeach

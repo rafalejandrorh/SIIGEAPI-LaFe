@@ -21,7 +21,7 @@ class Token_Empresas extends Model
         'estatus'
     ];
 
-    public function Dependencias()
+    public function empresas()
     {
         return $this->belongsto(Empresas::class, 'id_empresa');
     }

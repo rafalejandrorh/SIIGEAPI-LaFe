@@ -1,1 +1,1 @@
-@section('title', 'SIREPOL | Tokens')
+@section('title', 'SIIGEAPI | Tokens')

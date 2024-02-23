@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Traza_Dependencias extends Model
+class Traza_Empresas extends Model
 {
     use HasFactory;
 
-    protected $table = 'trazas.dependencias';
+    protected $table = 'trazas.empresas';
 
     protected $fillable = ['id_user','id_accion', 'valores_modificados'];
 

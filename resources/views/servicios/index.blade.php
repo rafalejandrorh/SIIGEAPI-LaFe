@@ -33,9 +33,9 @@
                             {!! Form::close() !!}
                                 <div class="row">
                                     <div class="col-xs-9 col-sm-9 col-md-9">
-                                        @can('servicios.create')
-                                                <a class="btn btn-success" href="{{ route('servicios.create') }}"><i class="fa fa-plus"></i> Registrar</a>                        
-                                        @endcan
+                                        {{-- @can('servicios.create') --}}
+                                            <a class="btn btn-success" href="{{ route('servicios.create') }}"><i class="fa fa-plus"></i> Registrar</a>                        
+                                        {{-- @endcan --}}
                                     </div>
                                 </div>
                                     <table class="table table-striped mt-2 display dataTable table-hover">
@@ -52,25 +52,25 @@
                                                 <td class="sorting_1">{{$servicio->nombre}}</td>
                                                 <td class="sorting_1">{{$servicio->metodo}}</td>
                                                 <td class="sorting_1">
-                                                    @can('servicios.update_status')
+                                                    {{-- @can('servicios.update_status') --}}
                                                         {!! Form::model($servicio, ['method' => 'PATCH','route' => ['servicios.update_status', $servicio->id]]) !!}
                                                             {!! Form::button($servicio->estatus ? 'Activo' : 'Inactivo', ['type' => 'submit', 'class' => $servicio->estatus ? 'btn btn-info' : 'btn btn-danger']) !!}
                                                         {!! Form::close() !!} 
-                                                    @elsecan('servicios.index')
-                                                        <td class="sorting_1">
+                                                    {{-- @elsecan('servicios.index') --}}
+                                                        {{-- <td class="sorting_1">
                                                             <span class="badge badge-pill badge-{{$servicio->estatus ? 'info' : 'danger'}}">{{ $servicio->estatus ? 'Activo' : 'Inactivo' }}</span>
-                                                        </td>
-                                                    @endcan
+                                                        </td> --}}
+                                                    {{-- @endcan --}}
                                                 </td>
                                                 <td align="center">
-                                                    @can('servicios.edit')
+                                                    {{-- @can('servicios.edit') --}}
                                                         <a class="btn btn-primary" href="{{ route('servicios.edit', $servicio->id) }}"><i class='fa fa-edit'></i></a>
-                                                    @endcan
-                                                    @can('servicios.destroy')
+                                                    {{-- @endcan --}}
+                                                    {{-- @can('servicios.destroy') --}}
                                                         {!! Form::open(['method' => 'DELETE','route' => ['servicios.destroy', $servicio->id],'style'=>'display:inline', 'class' => 'eliminar']) !!}
                                                             {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger']) !!}
                                                         {!! Form::close() !!}                                                  
-                                                    @endcan
+                                                    {{-- @endcan --}}
                                                 </td>
                                             </tr>
                                             @endforeach

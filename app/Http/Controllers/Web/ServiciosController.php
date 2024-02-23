@@ -16,11 +16,11 @@ class ServiciosController extends Controller
 
     function __construct(Servicios $servicios)
     {
-        $this->middleware('can:servicios.index')->only('index');
-        $this->middleware('can:servicios.create')->only('create');
-        $this->middleware('can:servicios.edit')->only('edit', 'update');
-        $this->middleware('can:servicios.destroy')->only('destroy');
-        $this->middleware('can:servicios.update_status')->only('update_status');
+        // $this->middleware('can:servicios.index')->only('index');
+        // $this->middleware('can:servicios.create')->only('create');
+        // $this->middleware('can:servicios.edit')->only('edit', 'update');
+        // $this->middleware('can:servicios.destroy')->only('destroy');
+        // $this->middleware('can:servicios.update_status')->only('update_status');
         $this->servicios = $servicios;
     }
     /**

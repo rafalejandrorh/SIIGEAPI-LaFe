@@ -10,10 +10,10 @@
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <label for="">Dependencia</label>
-                <select name="dependencia" id="" class="form-control select2" required>
+                <select name="id_empresa" id="" class="form-control select2" required>
                     <option value="">Seleccione</option>
-                @foreach ($dependencias as $dependencia)
-                    <option value="{{ $dependencia->id }}"> {{$dependencia->nombre.' ('.$dependencia->organismo.') - '.$dependencia->ministerio }}</option>
+                @foreach ($empresas as $empresa)
+                    <option value="{{ $empresa->id }}"> {{$empresa->nombre.' - '.$empresa->departamento }}</option>
                 @endforeach
                 </select>
             </div>
