@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\PolizasController;
+use App\Http\Controllers\API\V2\AuthController AS AuthControllerV2;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,8 +38,8 @@ Route::middleware(['token'])->group(function() {
 // Servicios para la APP autenticados por Auth Sanctum
 Route::prefix('/v2')->group(function() {
     Route::prefix('/auth')->group(function() {
-        //Route::post('/login', [AuthController::class, 'login']);
-        //Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/login', [AuthControllerV2::class, 'login']);
+        Route::post('/logout', [AuthControllerV2::class, 'logout']);
     });
     
     Route::middleware(['auth:sanctum', 'access.app', 'status.user'])->group(function() {

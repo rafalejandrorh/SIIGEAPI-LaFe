@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         User::create([
             'users' => 'Superadmin',
-            'id_person' => 2,
+            'id_person' => 1,
             'status' => true,
             'last_login' => date('Y-m-d H:i:s'),
             'password_status' => false,

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\V2;
 
 use App\Http\Controllers\Controller;
 use App\Http\Constants;
@@ -24,30 +24,31 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $this->setStartTime();
+        $this->setUrl($request->path());
+
         $request->validate([
             'user'    => 'required|max:20',
             'password' => 'required',
         ]);
 
-        $message = '';
-        $data = [];
-        $code = Constants::HTTP_CODE_UNAUTHORIZED;
-        $description = Constants::DESCRIPTION_ERROR_AUTH;
+        $this->setData([]);
+        $this->setMessage('');
+        $this->setCode(Constants::HTTP_CODE_UNAUTHORIZED);
+        $this->setDescription(Constants::DESCRIPTION_ERROR_AUTH);
 
         $validateUser = $this->user::where('users', $request->user)->exists();
         if($validateUser) {
 
             $validateStatusUser = $this->user::where('users', $request->user)
-            ->where('acceso_app', true)
             ->where('status', true)
             ->exists();
 
             if($validateStatusUser) {
                 
-                $user = $this->user->with('funcionario.person')->with('funcionario.jerarquia')->where('users', $request->user)->first();
-                $jerarquia = $user->funcionario->jerarquia->valor;
-                $primerNombre = $user->funcionario->person->primer_nombre;
-                $primerApellido = $user->funcionario->person->primer_apellido;
+                $user = $this->user->with('person')->where('users', $request->user)->first();
+                $primerNombre = $user->person->primer_nombre;
+                $primerApellido = $user->person->primer_apellido;
                 $validatePassword = Hash::check($request->password, $user->password);
 
                 if($validatePassword) {
@@ -55,39 +56,50 @@ class AuthController extends Controller
                     $dateNow = date('d-m-Y H:i:s');
                     $dateExpireToken = date('d-m-Y H:i:s', strtotime($dateNow."+ 12 hour"));
                     $token = $user->createToken('APPSIIGEAPI', ['*'], $dateExpireToken)->plainTextToken;
-                    
-                    $message = 'Inicio de Sesión Exitoso';
                     $data = [
                         'userId' => $user->id,
-                        'funcionario' => $jerarquia.' '.$primerNombre.' '.$primerApellido,
+                        'fullName' => $primerNombre.' '.$primerApellido,
                         'accessToken' => $token
                     ];
-                    $code = Constants::HTTP_CODE_OK;
-                    $description = Constants::DESCRIPTION_OK_AUTH;
+
+                    $this->setMessage('Inicio de Sesión Exitoso');
+                    $this->setData($data);
+                    $this->setCode(Constants::HTTP_CODE_OK);
+                    $this->setDescription(Constants::DESCRIPTION_OK_AUTH);
                 }else{
-                    $message = 'Contraseña Incorrecta';
+                    $this->setMessage('Contraseña Incorrecta');
                 }
             }else{
-                $message = 'Usuario Inactivo o Sin Acceso a la Aplicación Móvil';
+                $this->setMessage('Usuario Inactivo o Sin Acceso a la Aplicación Móvil');
             }
         }else{
-            $message = 'Usuario Incorrecto o No Registrado';
+            $this->setMessage('Usuario Incorrecto o No Registrado');
         }
-        
-        $this->setMessage($message);
-        $this->setCode($code);
-        $this->setDescription($description);
-        $this->setData($data);
+        $this->calculateTimeExecution();
+
         return response()->json($this->getResponse(), $this->getCode(), $this->getHeader());
     }
 
     public function logout(Request $request)
     {
+        $this->setStartTime();
+        $this->setUrl($request->path());
+
         $bearerToken = $request->bearerToken() ?? null;
-        PersonalAccessToken::findToken($bearerToken)->delete();
-        $this->setMessage('Sesión Finalizada Exitosamente');
-        $this->setCode(Constants::HTTP_CODE_OK);
-        $this->setDescription(Constants::HTTP_DESCRIPTION_OK);
+        $validateToken = PersonalAccessToken::findToken($bearerToken);
+        if($validateToken) {
+
+            $validateToken->delete();
+            $this->setMessage('Sesión Finalizada Exitosamente');
+            $this->setCode(Constants::HTTP_CODE_OK);
+            $this->setDescription(Constants::HTTP_DESCRIPTION_OK);
+        }else{
+            $this->setMessage('No se encontró el Token');
+            $this->setCode(Constants::HTTP_CODE_NOT_FOUND);
+            $this->setDescription(Constants::HTTP_DESCRIPTION_NOT_FOUND);
+        }
+        $this->calculateTimeExecution();
+
         return response()->json($this->getResponse(), $this->getCode(), $this->getHeader());
     }
 
