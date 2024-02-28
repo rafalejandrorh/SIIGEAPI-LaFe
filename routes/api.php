@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\AuthController AS AuthControllerV1;
 use App\Http\Controllers\API\V2\AuthController AS AuthControllerV2;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +30,8 @@ Route::get('/', function() {
 // Servicios a Externos Autenticados por Bearer Token
 Route::middleware(['token'])->group(function() {
     Route::prefix('/v1')->group(function() {
-        Route::prefix('/polizas')->group(function() {
-            Route::post('/emision', [PolizasController::class, 'broadcast']);
+        Route::prefix('/auth')->group(function() {
+            Route::post('/', [AuthControllerV1::class, 'index']);
         });
     });
 });
