@@ -11,7 +11,7 @@ trait TokenJWTTrait
     public $time_expire;
     public $time;
 
-    public function generateTokenJWT($duracionToken, $id_dependencia)
+    public function generateTokenJWT($duracionToken, $id_empresa)
     {
         date_default_timezone_set('America/Caracas');
         $this->time = time();
@@ -20,7 +20,7 @@ trait TokenJWTTrait
             "iat" => $this->time, //Tiempo en que inicia el Token
             "exp" => $this->time_expire, //Tiempo de expiración del Token
             "data" => [
-                "id_dependencia" => $id_dependencia,
+                "id_empresa" => $id_empresa,
             ]
         );
 
