@@ -32,6 +32,7 @@ Route::middleware(['token'])->group(function() {
     Route::prefix('/v1')->group(function() {
         Route::prefix('/auth')->group(function() {
             Route::post('/', [AuthControllerV1::class, 'index']);
+            Route::post('/check', [AuthControllerV1::class, 'check'])->withoutMiddleware(['token']);
         });
     });
 });
