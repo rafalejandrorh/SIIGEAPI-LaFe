@@ -34,8 +34,8 @@ class CheckToken
     public function handle(Request $request, Closure $next)
     {
         $bearerToken = $request->bearerToken() ?? null;
-        $headers = $request->header();
-        $entity = $headers['x-entity'] ?? null;
+        $entity = $request->header('x-entity') ?? null;
+        $operation = $request->header('x-operation') ?? null;
 
         $code = Constants::HTTP_CODE_UNAUTHORIZED;
         $description = Constants::HTTP_DESCRIPTION_UNAUTHORIZED;
@@ -44,7 +44,7 @@ class CheckToken
         if(isset($bearerToken) && $bearerToken != null) {
             if(isset($entity)) {
                 
-                $empresa = $this->token::join('empresas', 'empresas.id', '=', 'token_empresas.id_empresa')->Where('seudonimo', $headers['x-entity']);
+                $empresa = $tokenEmpresa->Where('seudonimo', $entity);
                 $existsEntity = $empresa->exists();
                 
                 if($existsEntity) {
@@ -60,6 +60,7 @@ class CheckToken
                             $servicesAllowed = $this->rebuildArrayServices($this->getServiciosEmpresa($empresa['id_empresa']));
                             $request['servicesAllowed'] = $servicesAllowed;
                             $request['idEmpresa'] = $empresa['id_empresa'];
+                            $request['operation'] = $operation;
                             $code = Constants::HTTP_CODE_OK;
                             $description = Constants::DESCRIPTION_OK_TOKEN;
                             
